@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yüz Tanıma Giriş</title>
+</head>
+<body>
+    <h2>Yüz Tanıma Sistemi</h2>
+
+    <video id="video" width="320" height="240" autoplay></video><br><br>
+
+    <input type="text" id="nameInput" placeholder="Adınızı girin (kayıt için)">
+    <br><br>
+    <button onclick="registerFace()">Kayıt Et</button>
+    <button onclick="verifyFace()">Giriş Yap</button>
+
+    <p id="result"></p>
+
+    <script>
+        const video = document.getElementById('video');
+        const result = document.getElementById('result');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Kamera hatası:", err);
+            });
+
+        function captureImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            return canvas.toDataURL('image/jpeg');
+        }
+
+        function registerFace() {
+            const image = captureImage();
+            const name = document.getElementById("nameInput").value;
+            if (!name) {
+                result.innerText = "İsim girmeniz gerekiyor!";
+                return;
+            }
+
+            fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: image, name: name })
+            })
+            .then(res => res.json())
+            .then(data => {
+                result.innerText = data.message;
+            });
+        }
+
+        function verifyFace() {
+            const image = captureImage();
+            fetch('/verify_face', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: image })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    result.innerText = `Giriş başarılı: ${data.name}`;
+                    window.location.href = "/dashboard";
+                } else {
+                    result.innerText = `Giriş başarısız: ${data.message}`;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
