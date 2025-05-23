@@ -14,6 +14,8 @@
       <change afterPath="$PROJECT_DIR$/.idea/yuztanima.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/known_faces/asd.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/known_faces/Ã§.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/static/js/camera.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/templates/admin_login.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/templates/admin_panel.html" afterDir="false" />
@@ -22,6 +24,7 @@
       <change afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
